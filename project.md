@@ -28,3 +28,27 @@
 - Used business.csv + economy.csv instead of Clean_Dataset.csv — to keep raw date and engineer features ourselves
 - Kept apparent post-merge duplicates — they represent real flights, not data errors
 - Did NOT encode or normalize — must happen after train/test split to prevent data leakage
+
+
+### Phase 3 — Preprocessing ✅
+**Status:** Complete
+
+#### Tasks completed:
+- [x] Loaded flights_cleaned.csv (300,259 rows × 12 columns)
+- [x] Split into train (64%), val (16%), test (20%) before any encoding
+- [x] Applied Target Encoding on airline, from, to using y_train means only
+- [x] Dropped original string columns after encoding
+- [x] Confirmed zero nulls after encoding
+- [x] No scaling applied — XGBoost/LightGBM are scale invariant
+- [x] Saved all 6 splits to data/processed/
+
+#### Key decisions:
+- Split before encoding to prevent data leakage
+- Used simple target encoding over LeaveOneOut — negligible difference at 300K rows
+- Skipped scaling — unnecessary for tree based models
+- Validation set created for early stopping during model training
+
+#### Final feature set (11 columns):
+- stops_numeric, duration_minutes, departure_hour, arrival_hour
+- month, day, is_weekend, is_business
+- airline_encoded, from_encoded, to_encoded
