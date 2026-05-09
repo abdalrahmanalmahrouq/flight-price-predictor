@@ -52,3 +52,51 @@
 - stops_numeric, duration_minutes, departure_hour, arrival_hour
 - month, day, is_weekend, is_business
 - airline_encoded, from_encoded, to_encoded
+
+
+### Phase 4 — Baseline Modelling ✅
+**Status:** Complete
+
+#### Tasks completed:
+- [x] Trained XGBoost baseline — Val RMSE: 3,077 | R²: 0.9816
+- [x] Trained LightGBM baseline — Val RMSE: 2,977 | R²: 0.9827
+- [x] LightGBM outperformed XGBoost on all metrics
+- [x] Both models showed minimal overfitting
+
+#### Key decisions:
+- Chose LightGBM for tuning — faster, better on large datasets
+- Used early stopping to prevent overfitting automatically
+
+---
+
+### Phase 5 — Hyperparameter Tuning ✅
+**Status:** Complete
+
+#### Tasks completed:
+- [x] Installed and configured Optuna
+- [x] Ran 50 trials of Bayesian optimization
+- [x] Best trial found at trial 48 — model still improving
+- [x] Trained final tuned model with best params
+- [x] Evaluated on locked test set — one time only
+
+#### Best parameters found:
+- learning_rate: 0.061
+- max_depth: 9
+- num_leaves: 300
+- subsample: 0.776
+- colsample_bytree: 0.764
+- reg_alpha: 6.6
+- reg_lambda: 0.123
+
+#### Final Results:
+| Metric | Validation | Test |
+|---|---|---|
+| MAE | 1,522 | 1,515 |
+| RMSE | 2,930 | 2,912 |
+| R² | 0.9833 | 0.9835 |
+
+#### Key observations:
+- Test performance matched validation almost exactly — no overfitting
+- MAE of 1,515 rupees on average across all tickets
+- ~3% error on business tickets, ~23% on economy tickets
+- Saved final model to models/tuned_lgb_model.joblib
