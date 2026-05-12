@@ -31,32 +31,34 @@ FEATURE_ORDER = [
 
 ENCODING_MAP = {
     "airline": {
-        "Air India": 23611,
-        "GO FIRST": 5644,
-        "IndiGo": 5314,
-        "SpiceJet": 6215,
-        "StarAir": 6215,
-        "Trujet": 3237,
-        "Vistara": 30382,
+        ("Air India", 0): 7301.0,
+        ("Air India", 1): 47154.0,
+        ("AirAsia", 0): 4117.0,
+        ("GO FIRST", 0): 5656.0,
+        ("Indigo", 0): 5318.0,
+        ("SpiceJet", 0): 6195.0,
+        ("StarAir", 0): 4493.0,
+        ("Trujet", 0): 3316.0,
+        ("Vistara", 0): 7815.0,
+        ("Vistara", 1): 55497.0,
     },
     "from": {
-        "Bangalore": 21476,
-        "Chennai": 22067,
-        "Delhi": 18993,
-        "Hyderabad": 20052,
-        "Kolkata": 21785,
-        "Mumbai": 21481,
+        ("Bangalore", 0): 6582.0,  ("Bangalore", 1): 53792.0,
+        ("Chennai", 0): 6600.0,    ("Chennai", 1): 54206.0,
+        ("Delhi", 0): 6299.0,      ("Delhi", 1): 48798.0,
+        ("Hyderabad", 0): 6228.0,  ("Hyderabad", 1): 50331.0,
+        ("Kolkata", 0): 7464.0,    ("Kolkata", 1): 56546.0,
+        ("Mumbai", 0): 6350.0,     ("Mumbai", 1): 52748.0,
     },
     "to": {
-        "Bangalore": 21509,
-        "Chennai": 21932,
-        "Delhi": 18553,
-        "Hyderabad": 20458,
-        "Kolkata": 22003,
-        "Mumbai": 21362,
+        ("Bangalore", 0): 6593.0,  ("Bangalore", 1): 53801.0,
+        ("Chennai", 0): 6650.0,    ("Chennai", 1): 53623.0,
+        ("Delhi", 0): 6263.0,      ("Delhi", 1): 48081.0,
+        ("Hyderabad", 0): 6310.0,  ("Hyderabad", 1): 50561.0,
+        ("Kolkata", 0): 7185.0,    ("Kolkata", 1): 56823.0,
+        ("Mumbai", 0): 6475.0,     ("Mumbai", 1): 52878.0,
     },
 }
-
 # Lifespan
 @asynccontextmanager
 async def lifespan(app: FastAPI):

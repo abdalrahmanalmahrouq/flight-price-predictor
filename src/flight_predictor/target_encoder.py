@@ -13,7 +13,11 @@ class TargetEncoder:
         df["__target__"] = y.values
 
         for col in self.CATEGORICAL_COLS:
-            self._encoding_means[col] = df.groupby(col)["__target__"].mean()
+            # Group by both the categorical column AND is_business
+            # This gives separate means for business and economy per category
+            self._encoding_means[col] = (
+                df.groupby([col, "is_business"])["__target__"].mean()
+            )
 
         return self
 
@@ -21,7 +25,13 @@ class TargetEncoder:
         df = df.copy()
 
         for col in self.CATEGORICAL_COLS:
-            df[col + "_encoded"] = df[col].map(self._encoding_means[col])
+            # Look up mean using both col value AND is_business as combined key
+            df[col + "_encoded"] = df.apply(
+                lambda row: self._encoding_means[col].get(
+                    (row[col], row["is_business"]), None
+                ),
+                axis=1
+            )
 
         df = df.drop(columns=self.CATEGORICAL_COLS)
         return df

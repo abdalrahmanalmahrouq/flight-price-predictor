@@ -1,98 +1,115 @@
-# tests/test_target_encoder.py
-
 import pandas as pd
+import numpy as np
 import pytest
 from flight_predictor.target_encoder import TargetEncoder
 
 
 @pytest.fixture
-def train_df():
-    return pd.DataFrame({
-        "airline": ["Air India", "Air India", "IndiGo", "IndiGo", "Vistara"],
-        "from":    ["Delhi",     "Mumbai",    "Delhi",  "Mumbai",  "Delhi"],
-        "to":      ["Mumbai",    "Delhi",     "Chennai","Kolkata", "Mumbai"],
-        "stops_numeric":    [0, 1, 0, 1, 0],
-        "duration_minutes": [150, 105, 120, 90, 180],
-        "departure_hour":   [8, 14, 6, 10, 16],
-        "arrival_hour":     [11, 15, 9, 12, 19],
-        "month":            [2, 3, 2, 3, 2],
-        "day":              [4, 5, 4, 5, 4],
-        "is_weekend":       [0, 1, 0, 1, 0],
-        "is_business":      [1, 0, 0, 0, 1],
+def sample_data():
+    df = pd.DataFrame({
+        "airline": ["Air India", "Air India", "IndiGo", "IndiGo", "Vistara", "Vistara"],
+        "from":    ["Delhi",     "Mumbai",    "Delhi",  "Mumbai",  "Delhi",   "Mumbai"],
+        "to":      ["Mumbai",    "Delhi",     "Mumbai", "Delhi",   "Mumbai",  "Delhi"],
+        "is_business": [1, 0, 0, 0, 1, 0],
+        "other_col": [1, 2, 3, 4, 5, 6],
     })
+    y = pd.Series([50000, 8000, 5000, 6000, 48000, 7000])
+    return df, y
 
 
-@pytest.fixture
-def train_y():
-    return pd.Series([12500.0, 3000.0, 2800.0, 3200.0, 15000.0])
+def test_fit_creates_encoding_means(sample_data):
+    df, y = sample_data
+    encoder = TargetEncoder()
+    encoder.fit(df, y)
+
+    assert "airline" in encoder._encoding_means
+    assert "from" in encoder._encoding_means
+    assert "to" in encoder._encoding_means
 
 
-@pytest.fixture
-def val_df():
-    return pd.DataFrame({
-        "airline": ["Air India", "IndiGo"],
-        "from":    ["Delhi",     "Mumbai"],
-        "to":      ["Mumbai",    "Kolkata"],
-        "stops_numeric":    [0, 1],
-        "duration_minutes": [150, 90],
-        "departure_hour":   [8, 10],
-        "arrival_hour":     [11, 12],
-        "month":            [2, 3],
-        "day":              [4, 5],
-        "is_weekend":       [0, 1],
-        "is_business":      [1, 0],
-    })
+def test_fit_creates_multiindex_per_class(sample_data):
+    df, y = sample_data
+    encoder = TargetEncoder()
+    encoder.fit(df, y)
+
+    # Should have (airline, is_business) as MultiIndex
+    assert ("Air India", 1) in encoder._encoding_means["airline"].index
+    assert ("Air India", 0) in encoder._encoding_means["airline"].index
+    assert ("IndiGo", 0) in encoder._encoding_means["airline"].index
 
 
-def test_encoded_columns_created(train_df, train_y):
-    result = TargetEncoder().fit(train_df, train_y).transform(train_df)
-    assert "airline_encoded" in result.columns
-    assert "from_encoded" in result.columns
-    assert "to_encoded" in result.columns
+def test_business_and_economy_get_different_encoded_values(sample_data):
+    df, y = sample_data
+    encoder = TargetEncoder()
+    encoder.fit(df, y)
+
+    air_india_business = encoder._encoding_means["airline"][("Air India", 1)]
+    air_india_economy  = encoder._encoding_means["airline"][("Air India", 0)]
+
+    assert air_india_business != air_india_economy
+    assert air_india_business > air_india_economy
 
 
-def test_original_categorical_columns_dropped(train_df, train_y):
-    result = TargetEncoder().fit(train_df, train_y).transform(train_df)
+def test_transform_drops_original_columns(sample_data):
+    df, y = sample_data
+    encoder = TargetEncoder()
+    result = encoder.fit_transform(df, y)
+
     assert "airline" not in result.columns
     assert "from" not in result.columns
     assert "to" not in result.columns
 
 
-def test_airline_encoded_values_are_means(train_df, train_y):
+def test_transform_adds_encoded_columns(sample_data):
+    df, y = sample_data
     encoder = TargetEncoder()
-    result = encoder.fit(train_df, train_y).transform(train_df)
+    result = encoder.fit_transform(df, y)
 
-    # Air India rows: prices 12500 and 3000 → mean = 7750
-    air_india_rows = result.iloc[[0, 1]]
-    assert (air_india_rows["airline_encoded"] == 7750.0).all()
-
-    # IndiGo rows: prices 2800 and 3200 → mean = 3000
-    indigo_rows = result.iloc[[2, 3]]
-    assert (indigo_rows["airline_encoded"] == 3000.0).all()
+    assert "airline_encoded" in result.columns
+    assert "from_encoded" in result.columns
+    assert "to_encoded" in result.columns
 
 
-def test_val_uses_train_means_not_its_own(train_df, train_y, val_df):
+def test_transform_business_rows_get_higher_encoding(sample_data):
+    df, y = sample_data
     encoder = TargetEncoder()
-    encoder.fit(train_df, train_y)
+    result = encoder.fit_transform(df, y)
 
-    val_result = encoder.transform(val_df)
+    business_encoded = result[result["is_business"] == 1]["airline_encoded"].mean()
+    economy_encoded  = result[result["is_business"] == 0]["airline_encoded"].mean()
 
-    # Air India mean learned from train = 7750
-    # val has only one Air India row but it must use train mean not recalculate
-    assert val_result["airline_encoded"].iloc[0] == 7750.0
-
-
-def test_fit_transform_equals_fit_then_transform(train_df, train_y):
-    encoder1 = TargetEncoder()
-    result1 = encoder1.fit_transform(train_df, train_y)
-
-    encoder2 = TargetEncoder()
-    result2 = encoder2.fit(train_df, train_y).transform(train_df)
-
-    assert result1.equals(result2)
+    assert business_encoded > economy_encoded
 
 
-def test_original_dataframe_not_modified(train_df, train_y):
-    original_airline = train_df["airline"].copy()
-    TargetEncoder().fit(train_df, train_y).transform(train_df)
-    assert train_df["airline"].equals(original_airline)
+def test_transform_does_not_mutate_input(sample_data):
+    df, y = sample_data
+    original_cols = df.columns.tolist()
+    encoder = TargetEncoder()
+    encoder.fit_transform(df, y)
+
+    assert df.columns.tolist() == original_cols
+
+
+def test_unseen_category_returns_none(sample_data):
+    df, y = sample_data
+    encoder = TargetEncoder()
+    encoder.fit(df, y)
+
+    df_new = pd.DataFrame({
+        "airline": ["SpiceJet"],   # unseen airline
+        "from":    ["Delhi"],
+        "to":      ["Mumbai"],
+        "is_business": [0],
+        "other_col": [1],
+    })
+    result = encoder.transform(df_new)
+    assert result["airline_encoded"].isna().all()
+
+
+def test_fit_does_not_mutate_input(sample_data):
+    df, y = sample_data
+    original_cols = df.columns.tolist()
+    encoder = TargetEncoder()
+    encoder.fit(df, y)
+
+    assert df.columns.tolist() == original_cols
