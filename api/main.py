@@ -98,16 +98,18 @@ def predict(flight: FlightInput):
     try:
         data = flight.model_dump()
 
-        # Step 1 — encode first
-        data["airline_encoded"] = ENCODING_MAP["airline"][data.pop("airline")]
-        data["from_encoded"]    = ENCODING_MAP["from"][data.pop("from_city")]
-        data["to_encoded"]      = ENCODING_MAP["to"][data.pop("to_city")]
+        if data["is_business"] == 1 and data["airline"] not in ["Air India", "Vistara"]:
+            raise HTTPException(
+                status_code=422,
+                detail=f"{data['airline']} does not operate business class. Choose Air India or Vistara."
+            )
+        # Build lookup key using (value, is_business) tuple
+        is_business = data["is_business"]
+        data["airline_encoded"] = ENCODING_MAP["airline"][(data.pop("airline"), is_business)]
+        data["from_encoded"]    = ENCODING_MAP["from"][(data.pop("from_city"), is_business)]
+        data["to_encoded"]      = ENCODING_MAP["to"][(data.pop("to_city"), is_business)]
 
-        print("DEBUG after encoding:", data)
-        # Step 2 — build DataFrame after encoding
         df = pd.DataFrame([data], columns=FEATURE_ORDER)
-
-        # Step 3 — predict
         prediction = ml_model["model"].predict(df)
         price = float(prediction[0])
 
@@ -128,9 +130,16 @@ def predict_batch(batch: BatchFlightInput):
         rows = []
         for flight in batch.flights:
             data = flight.model_dump()
-            data["airline_encoded"] = ENCODING_MAP["airline"][data.pop("airline")]
-            data["from_encoded"]    = ENCODING_MAP["from"][data.pop("from_city")]
-            data["to_encoded"]      = ENCODING_MAP["to"][data.pop("to_city")]
+
+            if data["is_business"] == 1 and data["airline"] not in ["Air India", "Vistara"]:
+                raise HTTPException(
+                    status_code=422,
+                    detail=f"{data['airline']} does not operate business class. Choose Air India or Vistara."
+                )
+            is_business = data["is_business"]
+            data["airline_encoded"] = ENCODING_MAP["airline"][(data.pop("airline"), is_business)]
+            data["from_encoded"]    = ENCODING_MAP["from"][(data.pop("from_city"), is_business)]
+            data["to_encoded"]      = ENCODING_MAP["to"][(data.pop("to_city"), is_business)]
             rows.append(data)
 
         df = pd.DataFrame(rows, columns=FEATURE_ORDER)
@@ -146,3 +155,4 @@ def predict_batch(batch: BatchFlightInput):
         predictions=prices,
         count=len(prices),
     )
+   

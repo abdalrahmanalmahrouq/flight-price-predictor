@@ -18,17 +18,17 @@ class FlightInput(BaseModel):
         "json_schema_extra": {
             "examples": [
                 {
-                    "stops_numeric": 0,
-                    "duration_minutes": 135,
+                    "stops_numeric": 2,
+                    "duration_minutes": 1265,
                     "departure_hour": 6,
-                    "arrival_hour": 8,
-                    "month": 3,
-                    "day": 2,
+                    "arrival_hour": 17,
+                    "month": 2,
+                    "day": 0,
                     "is_weekend": 0,
-                    "is_business": 0,
-                    "airline": "Air India",
-                    "from_city": "Delhi",
-                    "to_city": "Mumbai"
+                    "is_business": 1,
+                    "airline": "Vistara",
+                    "from_city": "Kolkata",
+                    "to_city": "Chennai"
                 }
             ]
         }
