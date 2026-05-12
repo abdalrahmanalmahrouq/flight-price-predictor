@@ -1,4 +1,5 @@
-
+import mlflow
+import mlflow.lightgbm
 
 from sklearn.model_selection import train_test_split
 from flight_predictor.data_loader import DataLoader
@@ -34,7 +35,9 @@ def split(df):
 
 if __name__ == "__main__":
 
+    mlflow.set_experiment("flight-price-predictor")
 
+    with mlflow.start_run(run_name="tuned-lgb-run3"):
 
         print("Loading data...")
         loader = DataLoader()
@@ -63,7 +66,12 @@ if __name__ == "__main__":
         trainer.save()
 
 
-
+        print("Loging params...")
+        mlflow.log_params(trainer.best_params)
+        mlflow.log_param("best_trial_number", trainer.best_trial.number)
+        mlflow.log_param("best_trial_RMSE",   round(trainer.best_trial.value, 2))
+        mlflow.log_param("n_trials", 50)
+        mlflow.log_param("best_iteration", trainer.model.best_iteration_)
 
 
         print("Evaluating...")
@@ -75,10 +83,31 @@ if __name__ == "__main__":
             "test": (X_test, y_test)
         }))
 
+        print("Logging metrics...")
+        mlflow.log_metric("val_MAE",   val_metrics["MAE"])
+        mlflow.log_metric("val_RMSE",  val_metrics["RMSE"])
+        mlflow.log_metric("val_R2",    val_metrics["R2"])
+
+        mlflow.log_metric("test_MAE",  test_metrics["MAE"])
+        mlflow.log_metric("test_RMSE", test_metrics["RMSE"])
+        mlflow.log_metric("test_R2",   test_metrics["R2"])
 
 
+        print("Explaining...")
+        explainer = Explainer()
+        explainer.fit(trainer.model, X_test.iloc[:1000])
+        explainer.summary_bar()
+        explainer.summary_dot()
+        explainer.waterfall()
 
+        print("Logging artifacts...")
+        mlflow.log_artifact("reports/figures/shap_summary_bar.png")
+        mlflow.log_artifact("reports/figures/shap_summary_dot.png")
+        mlflow.log_artifact("reports/figures/shap_waterfall.png")
+        mlflow.log_artifact("models/tuned_lgb_model.joblib")
 
+        print("Logging model...")
+        mlflow.lightgbm.log_model(trainer.model, name="lgb_model")
 
         print("Done.")
 
