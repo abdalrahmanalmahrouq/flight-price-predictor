@@ -2,7 +2,8 @@ from contextlib import asynccontextmanager
 
 import mlflow.lightgbm
 import pandas as pd
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
+import joblib
 
 from api.schemas import (
     BatchFlightInput,
@@ -63,12 +64,20 @@ ENCODING_MAP = {
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     print("Loading model from MLflow registry...")
-    ml_model["model"] = mlflow.lightgbm.load_model(
+
+    # for production 
+    ml_model["champion"] = mlflow.lightgbm.load_model(
         "models:/lgb_model@production"
     )
-    print("Model loaded successfully.")
+    # for experiment 
+    ml_model["lightgbm"] = joblib.load("models/tuned_lgb_model.joblib")
+    ml_model["xgboost"] = joblib.load("models/xgboost_model.joblib")
+    ml_model["catboost"] = joblib.load("models/catboost_model.joblib")
+    ml_model["linear"] = joblib.load("models/linear_model.joblib")
+
+    print("Models loaded successfully.")
     yield
-    print("Shutting down. Clearing model.")
+    print("Shutting down. Clearing models.")
     ml_model.clear()
 
 
@@ -92,7 +101,7 @@ def health_check():
 
 @app.post("/predict", response_model=PredictionOutput)
 def predict(flight: FlightInput):
-    if "model" not in ml_model:
+    if "champion" not in ml_model:
         raise HTTPException(status_code=503, detail="Model not loaded.")
 
     try:
@@ -110,7 +119,7 @@ def predict(flight: FlightInput):
         data["to_encoded"]      = ENCODING_MAP["to"][(data.pop("to_city"), is_business)]
 
         df = pd.DataFrame([data], columns=FEATURE_ORDER)
-        prediction = ml_model["model"].predict(df)
+        prediction = ml_model["champion"].predict(df)
         price = float(prediction[0])
 
     except KeyError as e:
@@ -123,7 +132,7 @@ def predict(flight: FlightInput):
 
 @app.post("/predict/batch", response_model=BatchPredictionOutput)
 def predict_batch(batch: BatchFlightInput):
-    if "model" not in ml_model:
+    if "champion" not in ml_model:
         raise HTTPException(status_code=503, detail="Model not loaded.")
 
     try:
@@ -143,7 +152,7 @@ def predict_batch(batch: BatchFlightInput):
             rows.append(data)
 
         df = pd.DataFrame(rows, columns=FEATURE_ORDER)
-        predictions = ml_model["model"].predict(df)
+        predictions = ml_model["champion"].predict(df)
         prices = [float(p) for p in predictions]
 
     except KeyError as e:
@@ -156,3 +165,38 @@ def predict_batch(batch: BatchFlightInput):
         count=len(prices),
     )
    
+
+
+
+@app.post("/experiment/predict", response_model=PredictionOutput)
+def predict_experiment(
+    flight: FlightInput,
+    model_name: str = Query(default="lightgbm", enum=["lightgbm", "xgboost", "catboost","linear"])
+):
+    if model_name not in ml_model:
+        raise HTTPException(status_code=503, detail="Model not loaded.")
+    
+    try:
+        data = flight.model_dump()
+
+        if data["is_business"] == 1 and data["airline"] not in ["Air India", "Vistara"]:
+            raise HTTPException(
+                status_code=422,
+                detail=f"{data['airline']} does not operate business class. Choose Air India or Vistara."
+            )
+        # Build lookup key using (value, is_business) tuple
+        is_business = data["is_business"]
+        data["airline_encoded"] = ENCODING_MAP["airline"][(data.pop("airline"), is_business)]
+        data["from_encoded"]    = ENCODING_MAP["from"][(data.pop("from_city"), is_business)]
+        data["to_encoded"]      = ENCODING_MAP["to"][(data.pop("to_city"), is_business)]
+
+        df = pd.DataFrame([data], columns=FEATURE_ORDER)
+        prediction = ml_model[model_name].predict(df)
+        price = float(prediction[0])
+
+    except KeyError as e:
+        raise HTTPException(status_code=422, detail=f"Unknown value: {str(e)}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
+
+    return PredictionOutput(predicted_price=price, model_version = model_name)
