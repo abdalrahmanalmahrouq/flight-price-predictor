@@ -1,5 +1,7 @@
-from pydantic import BaseModel, Field
 from typing import Literal
+
+from pydantic import BaseModel, Field
+
 
 class FlightInput(BaseModel):
     stops_numeric: int = Field(..., ge=0, le=2, description="Number of stops: 0, 1, or 2")

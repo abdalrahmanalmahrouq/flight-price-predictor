@@ -2,7 +2,6 @@ import pandas as pd
 
 
 class TargetEncoder:
-
     CATEGORICAL_COLS = ["airline", "from", "to"]
 
     def __init__(self):
@@ -15,9 +14,9 @@ class TargetEncoder:
         for col in self.CATEGORICAL_COLS:
             # Group by both the categorical column AND is_business
             # This gives separate means for business and economy per category
-            self._encoding_means[col] = (
-                df.groupby([col, "is_business"])["__target__"].mean()
-            )
+            self._encoding_means[col] = df.groupby([col, "is_business"])[
+                "__target__"
+            ].mean()
 
         return self
 
@@ -30,7 +29,7 @@ class TargetEncoder:
                 lambda row: self._encoding_means[col].get(
                     (row[col], row["is_business"]), None
                 ),
-                axis=1
+                axis=1,
             )
 
         df = df.drop(columns=self.CATEGORICAL_COLS)

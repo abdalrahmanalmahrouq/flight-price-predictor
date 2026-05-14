@@ -1,0 +1,17 @@
+[tool.ruff]
+line-length = 88        # max line length (same as black's default)
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors (spacing, indentation)
+    "F",    # pyflakes (unused imports, undefined names)
+    "I",    # isort (import ordering)
+    "W",    # pycodestyle warnings
+]
+ignore = [
+    "E501",  # line too long — sometimes unavoidable, ignore if you want
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["flight_predictor"]  # your own package

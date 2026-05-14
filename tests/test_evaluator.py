@@ -3,7 +3,7 @@
 import numpy as np
 import pandas as pd
 import pytest
-from sklearn.datasets import make_regression
+
 from flight_predictor.evaluator import ModelEvaluator
 
 

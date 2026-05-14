@@ -1,9 +1,9 @@
 from contextlib import asynccontextmanager
 
+import joblib
 import mlflow.lightgbm
 import pandas as pd
 from fastapi import FastAPI, HTTPException, Query
-import joblib
 
 from api.schemas import (
     BatchFlightInput,
@@ -13,7 +13,7 @@ from api.schemas import (
     PredictionOutput,
 )
 
-# Model container 
+# Model container
 ml_model: dict = {}
 
 FEATURE_ORDER = [
@@ -65,11 +65,11 @@ ENCODING_MAP = {
 async def lifespan(app: FastAPI):
     print("Loading model from MLflow registry...")
 
-    # for production 
+    # for production
     ml_model["champion"] = mlflow.lightgbm.load_model(
         "models:/lgb_model@production"
     )
-    # for experiment 
+    # for experiment
     ml_model["lightgbm"] = joblib.load("models/tuned_lgb_model.joblib")
     ml_model["xgboost"] = joblib.load("models/xgboost_model.joblib")
     ml_model["catboost"] = joblib.load("models/catboost_model.joblib")
@@ -90,7 +90,7 @@ app = FastAPI(
 )
 
 
-# Endpoints 
+# Endpoints
 @app.get("/health", response_model=HealthResponse)
 def health_check():
     return HealthResponse(
@@ -164,7 +164,7 @@ def predict_batch(batch: BatchFlightInput):
         predictions=prices,
         count=len(prices),
     )
-   
+
 
 
 
@@ -175,7 +175,7 @@ def predict_experiment(
 ):
     if model_name not in ml_model:
         raise HTTPException(status_code=503, detail="Model not loaded.")
-    
+
     try:
         data = flight.model_dump()
 

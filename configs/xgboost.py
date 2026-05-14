@@ -1,5 +1,6 @@
 import xgboost as xgb
 
+
 def build_model(trial):
     params = {
         "learning_rate":    trial.suggest_float("learning_rate", 0.005, 0.3, log=True),

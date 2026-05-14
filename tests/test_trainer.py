@@ -1,8 +1,9 @@
 # tests/test_trainer.py
 
-import pytest
 import numpy as np
 import pandas as pd
+import pytest
+
 from flight_predictor.trainer import ModelTrainer
 
 

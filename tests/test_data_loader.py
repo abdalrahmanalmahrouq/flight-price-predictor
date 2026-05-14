@@ -1,8 +1,9 @@
 # tests/test_data_loader.py
 
+
 import pandas as pd
 import pytest
-from pathlib import Path
+
 from flight_predictor.data_loader import DataLoader
 
 

@@ -1,4 +1,5 @@
-import catboost as ctboost 
+import catboost as ctboost
+
 
 def build_model(trial):
     params = {

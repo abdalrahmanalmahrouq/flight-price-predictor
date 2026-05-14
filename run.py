@@ -1,18 +1,18 @@
 import sys
+
 import mlflow
+import mlflow.catboost
 import mlflow.lightgbm
 import mlflow.xgboost
-import mlflow.catboost
-
 from sklearn.model_selection import train_test_split
+
 from flight_predictor.data_loader import DataLoader
-from flight_predictor.preprocessor import Preprocessor
-from flight_predictor.feature_engineer import FeatureEngineer
-from flight_predictor.target_encoder import TargetEncoder
-from flight_predictor.trainer import ModelTrainer
 from flight_predictor.evaluator import ModelEvaluator
 from flight_predictor.explainer import Explainer
-
+from flight_predictor.feature_engineer import FeatureEngineer
+from flight_predictor.preprocessor import Preprocessor
+from flight_predictor.target_encoder import TargetEncoder
+from flight_predictor.trainer import ModelTrainer
 
 MODEL_NAME = sys.argv[1] if len(sys.argv) > 1 else "lightgbm"
 
@@ -41,7 +41,7 @@ def split(df):
         test_size=0.2,
         random_state=42
     )
-    
+
     return X_train, X_val, X_test, y_train, y_val, y_test
 
 
@@ -121,12 +121,12 @@ if __name__ == "__main__":
                 mlflow.log_artifact("reports/figures/shap_summary_dot.png")
                 mlflow.log_artifact("reports/figures/shap_waterfall.png")
             except Exception as e:
-                print(f"SHAP failed for {MODEL_NAME}: {e} — skipping plots.")    
-        
+                print(f"SHAP failed for {MODEL_NAME}: {e} — skipping plots.")
+
         mlflow.log_artifact(f"models/{MODEL_NAME}_model.joblib")
         print("Logging model...")
         LOG_MODEL[MODEL_NAME](trainer.model, name=f"{MODEL_NAME}_model")
 
         print("Done.")
 
-    
+

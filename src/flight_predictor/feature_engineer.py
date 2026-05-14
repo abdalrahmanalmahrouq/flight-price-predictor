@@ -2,7 +2,6 @@ import pandas as pd
 
 
 class FeatureEngineer:
-
     COLUMNS_TO_DROP = ["date"]
 
     def fit_transform(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -12,7 +11,7 @@ class FeatureEngineer:
         return df
 
     def _extract_date_features(self, df):
-        date = pd.to_datetime(df["date"], format='%d-%m-%Y')
+        date = pd.to_datetime(df["date"], format="%d-%m-%Y")
         df["month"] = date.dt.month
         df["day"] = date.dt.day_of_week
         df["is_weekend"] = df["day"].isin([5, 6]).astype(int)

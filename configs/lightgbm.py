@@ -1,4 +1,4 @@
-import lightgbm as lgb 
+import lightgbm as lgb
 
 
 def build_model(trial):

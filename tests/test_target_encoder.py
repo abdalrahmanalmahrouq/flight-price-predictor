@@ -1,6 +1,6 @@
 import pandas as pd
-import numpy as np
 import pytest
+
 from flight_predictor.target_encoder import TargetEncoder
 
 
