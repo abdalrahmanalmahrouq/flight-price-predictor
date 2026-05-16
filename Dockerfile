@@ -11,6 +11,7 @@ COPY src/        ./src/
 COPY setup.py    .
 COPY models/     ./models/
 
+RUN pip install -e .
 
 EXPOSE 8000
 
