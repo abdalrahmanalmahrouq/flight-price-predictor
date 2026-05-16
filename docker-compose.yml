@@ -3,16 +3,18 @@ version: "3.9"
 services:
 
   mlflow:
-    build:
-      context: .
-      dockerfile: Dockerfile.mlflow
+    image: ghcr.io/mlflow/mlflow:v2.22.0
     container_name: mlflow
+
     working_dir: /app
+
     volumes:
       - ./mlruns:/app/mlruns
       - ./mlflow.db:/app/mlflow.db
+
     ports:
       - "5000:5000"
+
     command: >
       mlflow server
       --host 0.0.0.0
@@ -31,17 +33,22 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+
     container_name: api
+
     ports:
       - "8000:8000"
+
     volumes:
       - ./mlruns:/app/mlruns
       - ./models:/app/models
       - ./data:/app/data
+
     environment:
       - MLFLOW_TRACKING_URI=http://mlflow:5000
       - MODEL_NAME=lightgbm_model
       - MODEL_ALIAS=champion
+
     depends_on:
       mlflow:
         condition: service_healthy
