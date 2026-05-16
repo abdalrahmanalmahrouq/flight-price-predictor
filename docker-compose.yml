@@ -1,27 +1,37 @@
+version: "3.9"
+
 services:
-  
+
   mlflow:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile.mlflow
+    container_name: mlflow
     working_dir: /app
     volumes:
-      - ./mlflow.db:/app/mlflow.db
       - ./mlruns:/app/mlruns
+      - ./mlflow.db:/app/mlflow.db
     ports:
       - "5000:5000"
     command: >
       mlflow server
       --host 0.0.0.0
       --port 5000
-      --backend-store-uri sqlite:///mlflow.db
+      --backend-store-uri sqlite:////app/mlflow.db
       --default-artifact-root /app/mlruns
-      --allowed-hosts '*'
+      --serve-artifacts
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
   api:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
+    container_name: api
     ports:
       - "8000:8000"
     volumes:
@@ -33,4 +43,5 @@ services:
       - MODEL_NAME=lightgbm_model
       - MODEL_ALIAS=champion
     depends_on:
-      - mlflow
+      mlflow:
+        condition: service_healthy
