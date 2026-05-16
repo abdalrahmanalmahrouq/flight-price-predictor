@@ -2,8 +2,7 @@ __pycache__/
 *.pyc
 flight_predictor.egg-info/
 
-/mlruns
-mlflow.db
+
 settings.json
 /documents
 testttts.ipynb
