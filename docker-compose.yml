@@ -23,11 +23,6 @@ services:
       --default-artifact-root /app/mlruns
       --serve-artifacts
 
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
 
   api:
     build:
@@ -49,6 +44,3 @@ services:
       - MODEL_NAME=lightgbm_model
       - MODEL_ALIAS=champion
 
-    depends_on:
-      mlflow:
-        condition: service_healthy
