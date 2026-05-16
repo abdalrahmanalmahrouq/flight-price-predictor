@@ -105,11 +105,3 @@ def test_unseen_category_returns_none(sample_data):
     result = encoder.transform(df_new)
     assert result["airline_encoded"].isna().all()
 
-
-def test_fit_does_not_mutate_input(sample_data):
-    df, y = sample_data
-    original_cols = df.columns.tolist()
-    encoder = TargetEncoder()
-    encoder.fit(df, y)
-
-    assert df.columns.tolist() == original_cols

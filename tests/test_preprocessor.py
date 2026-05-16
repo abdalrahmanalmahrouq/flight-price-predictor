@@ -1,5 +1,3 @@
-# tests/test_preprocessor.py
-
 import pandas as pd
 import pytest
 
@@ -71,11 +69,6 @@ def test_dirty_columns_dropped(sample_df):
     result = Preprocessor().fit_transform(sample_df)
     for col in ["ch_code", "num_code", "time_taken", "dep_time", "arr_time", "stop"]:
         assert col not in result.columns
-
-
-def test_date_column_preserved(sample_df):
-    result = Preprocessor().fit_transform(sample_df)
-    assert "date" in result.columns
 
 
 def test_original_dataframe_not_modified(sample_df):

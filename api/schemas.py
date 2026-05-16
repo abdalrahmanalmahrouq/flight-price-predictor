@@ -1,6 +1,8 @@
 from typing import Literal
-
+import os
 from pydantic import BaseModel, Field
+
+MODEL_NAME  = os.getenv("MODEL_NAME", "lightgbm_model")
 
 
 class FlightInput(BaseModel):
@@ -40,7 +42,7 @@ class FlightInput(BaseModel):
 class PredictionOutput(BaseModel):
     predicted_price: float
     currency: str = "INR"
-    model_version: str = "tunded_lgb"
+    model_version: str = f"{MODEL_NAME}"
 
 
 class BatchFlightInput(BaseModel):
@@ -51,7 +53,7 @@ class BatchPredictionOutput(BaseModel):
     predictions: list[float]
     count: int
     currency: str = "INR"
-    model_version: str = "tunded_lgb"
+    model_version: str = f"{MODEL_NAME}"
 
 
 class HealthResponse(BaseModel):

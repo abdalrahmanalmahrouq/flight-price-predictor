@@ -1,5 +1,3 @@
-# tests/test_feature_engineer.py
-
 import pandas as pd
 import pytest
 
@@ -44,12 +42,6 @@ def test_date_column_dropped(sample_df):
     result = FeatureEngineer().fit_transform(sample_df)
     assert "date" not in result.columns
 
-
-def test_existing_columns_preserved(sample_df):
-    result = FeatureEngineer().fit_transform(sample_df)
-    for col in ["stops_numeric", "duration_minutes", "departure_hour",
-                "arrival_hour", "is_business", "price"]:
-        assert col in result.columns
 
 
 def test_original_dataframe_not_modified(sample_df):

@@ -1,5 +1,3 @@
-# tests/test_evaluator.py
-
 import numpy as np
 import pandas as pd
 import pytest
