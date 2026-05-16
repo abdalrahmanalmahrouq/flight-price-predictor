@@ -1,4 +1,5 @@
 from contextlib import asynccontextmanager
+import os
 
 import joblib
 import mlflow.lightgbm
@@ -12,6 +13,12 @@ from api.schemas import (
     HealthResponse,
     PredictionOutput,
 )
+
+from flight_predictor.logger import logger, setup_logger
+
+LOG_LEVEL=os.getenv("LOG_LEVEL", "INFO")
+setup_logger(level=LOG_LEVEL)
+
 
 # Model container
 ml_model: dict = {}
@@ -60,24 +67,35 @@ ENCODING_MAP = {
         ("Mumbai", 0): 6475.0,     ("Mumbai", 1): 52878.0,
     },
 }
+
+MLFLOW_TRACKING_URI = os.getenv(
+    "MLFLOW_TRACKING_URI",
+    "http://localhost:5000"      
+)
+MODEL_NAME  = os.getenv("MODEL_NAME", "lightgbm_model")
+MODEL_ALIAS = os.getenv("MODEL_ALIAS", "champion")
+
 # Lifespan
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    print("Loading model from MLflow registry...")
 
+    logger.info("Connecting to mlflow at {}...", MLFLOW_TRACKING_URI)
+    mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
+
+    logger.info("Loading model {}@{}", MODEL_NAME, MODEL_ALIAS)
     # for production
     ml_model["champion"] = mlflow.lightgbm.load_model(
-        "models:/lgb_model@production"
+        f"models:/{MODEL_NAME}@{MODEL_ALIAS}"
     )
-    # for experiment
-    ml_model["lightgbm"] = joblib.load("models/tuned_lgb_model.joblib")
-    ml_model["xgboost"] = joblib.load("models/xgboost_model.joblib")
-    ml_model["catboost"] = joblib.load("models/catboost_model.joblib")
-    ml_model["linear"] = joblib.load("models/linear_model.joblib")
 
-    print("Models loaded successfully.")
+    # for experiment
+    for name in ["lightgbm", "xgboost", "catboost", "linear"]:
+        ml_model[name] = joblib.load(f"models/{name}_model.joblib")
+        logger.info("Loaded {} from disk.", name)
+
+    logger.info("All models loaded successfully.")
     yield
-    print("Shutting down. Clearing models.")
+    logger.info("Shutting down. Clearing models.")
     ml_model.clear()
 
 
@@ -101,13 +119,17 @@ def health_check():
 
 @app.post("/predict", response_model=PredictionOutput)
 def predict(flight: FlightInput):
+    logger.info("Prediction request — airline={} is_business={} month={}",
+                flight.airline, flight.is_business, flight.month)
     if "champion" not in ml_model:
+        logger.error("Champion model not loaded — returning 503")
         raise HTTPException(status_code=503, detail="Model not loaded.")
 
     try:
         data = flight.model_dump()
 
         if data["is_business"] == 1 and data["airline"] not in ["Air India", "Vistara"]:
+            logger.warning("Invalid business class airline: {}", data["airline"])
             raise HTTPException(
                 status_code=422,
                 detail=f"{data['airline']} does not operate business class. Choose Air India or Vistara."
@@ -122,9 +144,13 @@ def predict(flight: FlightInput):
         prediction = ml_model["champion"].predict(df)
         price = float(prediction[0])
 
+        logger.info("Prediction complete — price={:.2f} INR", price)
+
     except KeyError as e:
+        logger.warning("Unknown value in request: {}", str(e))
         raise HTTPException(status_code=422, detail=f"Unknown value: {str(e)}")
     except Exception as e:
+        logger.error("Prediction failed: {}", str(e))
         raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
 
     return PredictionOutput(predicted_price=price)
@@ -132,7 +158,12 @@ def predict(flight: FlightInput):
 
 @app.post("/predict/batch", response_model=BatchPredictionOutput)
 def predict_batch(batch: BatchFlightInput):
+
+    logger.info("Prediction request — airline={} is_business={} month={}",
+                flight.airline, flight.is_business, flight.month)
+    
     if "champion" not in ml_model:
+        logger.error("Champion model not loaded — returning 503")
         raise HTTPException(status_code=503, detail="Model not loaded.")
 
     try:
@@ -141,6 +172,7 @@ def predict_batch(batch: BatchFlightInput):
             data = flight.model_dump()
 
             if data["is_business"] == 1 and data["airline"] not in ["Air India", "Vistara"]:
+                logger.warning("Invalid business class airline: {}", data["airline"])
                 raise HTTPException(
                     status_code=422,
                     detail=f"{data['airline']} does not operate business class. Choose Air India or Vistara."
@@ -154,10 +186,13 @@ def predict_batch(batch: BatchFlightInput):
         df = pd.DataFrame(rows, columns=FEATURE_ORDER)
         predictions = ml_model["champion"].predict(df)
         prices = [float(p) for p in predictions]
+        logger.info("Prediction complete — price={:.2f} INR", price)
 
     except KeyError as e:
+        logger.warning("Unknown value in request: {}", str(e))
         raise HTTPException(status_code=422, detail=f"Unknown value: {str(e)}")
     except Exception as e:
+        logger.error("Prediction failed: {}", str(e))
         raise HTTPException(status_code=500, detail=f"Batch prediction failed: {str(e)}")
 
     return BatchPredictionOutput(
@@ -173,13 +208,17 @@ def predict_experiment(
     flight: FlightInput,
     model_name: str = Query(default="lightgbm", enum=["lightgbm", "xgboost", "catboost","linear"])
 ):
+    logger.info("Prediction request — airline={} is_business={} month={}",
+            flight.airline, flight.is_business, flight.month)
     if model_name not in ml_model:
+        logger.error("Champion model not loaded — returning 503")
         raise HTTPException(status_code=503, detail="Model not loaded.")
 
     try:
         data = flight.model_dump()
 
         if data["is_business"] == 1 and data["airline"] not in ["Air India", "Vistara"]:
+            logger.warning("Invalid business class airline: {}", data["airline"])
             raise HTTPException(
                 status_code=422,
                 detail=f"{data['airline']} does not operate business class. Choose Air India or Vistara."
@@ -193,10 +232,13 @@ def predict_experiment(
         df = pd.DataFrame([data], columns=FEATURE_ORDER)
         prediction = ml_model[model_name].predict(df)
         price = float(prediction[0])
+        logger.info("Prediction complete — price={:.2f} INR", price)
 
     except KeyError as e:
+        logger.warning("Unknown value in request: {}", str(e))
         raise HTTPException(status_code=422, detail=f"Unknown value: {str(e)}")
     except Exception as e:
+        logger.error("Prediction failed: {}", str(e))
         raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
 
     return PredictionOutput(predicted_price=price, model_version = model_name)
