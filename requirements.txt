@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+lightgbm
+xgboost
+catboost
+mlflow
+joblib
+pandas
+numpy
+scikit-learn
+pydantic
