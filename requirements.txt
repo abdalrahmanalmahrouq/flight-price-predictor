@@ -1,12 +1,11 @@
 fastapi
-uvicorn[standard]
+uvicorn
+mlflow
 lightgbm
 xgboost
 catboost
-mlflow
-joblib
 pandas
 numpy
 scikit-learn
-pydantic
+joblib
 loguru

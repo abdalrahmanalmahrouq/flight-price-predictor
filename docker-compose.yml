@@ -1,46 +1,39 @@
-version: "3.9"
-
 services:
 
   mlflow:
-    image: ghcr.io/mlflow/mlflow:v2.22.0
-    container_name: mlflow
-
+    build:
+      context: .
+      dockerfile: Dockerfile.mlflow
     working_dir: /app
-
     volumes:
       - ./mlruns:/app/mlruns
       - ./mlflow.db:/app/mlflow.db
-
     ports:
       - "5000:5000"
-
     command: >
       mlflow server
       --host 0.0.0.0
       --port 5000
-      --backend-store-uri sqlite:////app/mlflow.db
+      --backend-store-uri sqlite:///mlflow.db
       --default-artifact-root /app/mlruns
       --serve-artifacts
-
 
   api:
     build:
       context: .
       dockerfile: Dockerfile
-
-    container_name: api
-
     ports:
       - "8000:8000"
-
     volumes:
       - ./mlruns:/app/mlruns
       - ./models:/app/models
       - ./data:/app/data
-
     environment:
       - MLFLOW_TRACKING_URI=http://mlflow:5000
       - MODEL_NAME=lightgbm_model
       - MODEL_ALIAS=champion
-
+      - LOAD_FROM=disk
+      - CHAMPION_MODEL_PATH=models/lightgbm_model.joblib
+      - LOG_LEVEL=INFO
+    depends_on:
+      - mlflow

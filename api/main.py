@@ -78,27 +78,38 @@ MODEL_ALIAS = os.getenv("MODEL_ALIAS", "champion")
 # Lifespan
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    load_from = os.getenv("LOAD_FROM", "mlflow")
 
-    logger.info("Connecting to mlflow at {}...", MLFLOW_TRACKING_URI)
-    mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
+    if load_from == "disk":
+        champion_path = os.getenv(
+            "CHAMPION_MODEL_PATH",
+            "models/lightgbm_model.joblib"
+        )
+        logger.info("Loading champion from disk: {}", champion_path)
+        ml_model["champion"] = joblib.load(champion_path)
+        logger.info("Champion loaded successfully")
+    else:
+        logger.info("Connecting to MLflow at {}...", MLFLOW_TRACKING_URI)
+        mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
+        logger.info("Loading {}@{} from registry", MODEL_NAME, MODEL_ALIAS)
+        ml_model["champion"] = mlflow.lightgbm.load_model(
+            f"models:/{MODEL_NAME}@{MODEL_ALIAS}"
+        )
+        logger.info("Champion loaded from MLflow registry")
 
-    logger.info("Loading model {}@{}", MODEL_NAME, MODEL_ALIAS)
-    # for production
-    ml_model["champion"] = mlflow.lightgbm.load_model(
-        f"models:/{MODEL_NAME}@{MODEL_ALIAS}"
-    )
+    # Experimental models — same for both modes
+    for name in ["lightgbm", "xgboost", "catboost"]:
+        path = f"models/{name}_model.joblib"
+        if os.path.exists(path):
+            ml_model[name] = joblib.load(path)
+            logger.info("Loaded experimental model: {}", name)
+        else:
+            logger.warning("Experimental model not found: {}", path)
 
-    # for experiment
-    for name in ["lightgbm", "xgboost", "catboost", "linear"]:
-        ml_model[name] = joblib.load(f"models/{name}_model.joblib")
-        logger.info("Loaded {} from disk.", name)
-
-    logger.info("All models loaded successfully.")
+    logger.info("All models loaded — API ready")
     yield
-    logger.info("Shutting down. Clearing models.")
+    logger.info("Shutting down — clearing models")
     ml_model.clear()
-
-
 # App
 app = FastAPI(
     title="Flight Price Predictor",

@@ -9,9 +9,9 @@ testttts.ipynb
 /notebooks/05_testnotebook.ipynb
 /catboost_info
 /reports/figures
-
+.ruff_cache
 pip-packages
-
+.pytest_cache
 *.joblib
 
 /logs
