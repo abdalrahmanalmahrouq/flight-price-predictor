@@ -12,6 +12,5 @@ testttts.ipynb
 .ruff_cache
 pip-packages
 .pytest_cache
-*.joblib
 
 /logs
