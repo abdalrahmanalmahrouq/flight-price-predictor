@@ -14,7 +14,7 @@ class FlightInput(BaseModel):
     day: int = Field(..., ge=0, le=6, description="Day of week: 0=Monday, 6=Sunday")
     is_weekend: int = Field(..., ge=0, le=1, description="1 if Saturday or Sunday, else 0")
     is_business: int = Field(..., ge=0, le=1, description="1 if business class, else 0")
-    airline: Literal["Air India", "GO FIRST", "IndiGo", "SpiceJet", "StarAir", "Trujet", "Vistara"]
+    airline: Literal["Air India", "GO FIRST", "IndiGo", "AirAsia", "SpiceJet", "StarAir", "Trujet", "Vistara"]
     from_city: Literal["Bangalore", "Chennai", "Delhi", "Hyderabad", "Kolkata", "Mumbai"]
     to_city: Literal["Bangalore", "Chennai", "Delhi", "Hyderabad", "Kolkata", "Mumbai"]
 

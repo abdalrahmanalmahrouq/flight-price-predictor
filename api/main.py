@@ -43,7 +43,7 @@ ENCODING_MAP = {
         ("Air India", 1): 47154.0,
         ("AirAsia", 0): 4117.0,
         ("GO FIRST", 0): 5656.0,
-        ("Indigo", 0): 5318.0,
+        ("IndiGo", 0): 5318.0,
         ("SpiceJet", 0): 6195.0,
         ("StarAir", 0): 4493.0,
         ("Trujet", 0): 3316.0,
@@ -124,7 +124,7 @@ app = FastAPI(
 def health_check():
     return HealthResponse(
         status="ok",
-        model_loaded="model" in ml_model,
+        model_loaded="champion" in ml_model,
     )
 
 
@@ -170,8 +170,7 @@ def predict(flight: FlightInput):
 @app.post("/predict/batch", response_model=BatchPredictionOutput)
 def predict_batch(batch: BatchFlightInput):
 
-    logger.info("Prediction request — airline={} is_business={} month={}",
-                flight.airline, flight.is_business, flight.month)
+    logger.info(f"Batch prediction request received for {len(batch.flights)} flights")
     
     if "champion" not in ml_model:
         logger.error("Champion model not loaded — returning 503")
@@ -197,7 +196,7 @@ def predict_batch(batch: BatchFlightInput):
         df = pd.DataFrame(rows, columns=FEATURE_ORDER)
         predictions = ml_model["champion"].predict(df)
         prices = [float(p) for p in predictions]
-        logger.info("Prediction complete — price={:.2f} INR", price)
+        logger.info("Batch prediction complete — generated {} predictions", len(prices))
 
     except KeyError as e:
         logger.warning("Unknown value in request: {}", str(e))
