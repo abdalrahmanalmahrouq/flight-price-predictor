@@ -1,11 +1,10 @@
 import catboost as ctboost
 
-
-def build_model(trial):
+def build_model(trial, config):
     params = {
-        "learning_rate": trial.suggest_float("learning_rate", 0.005, 0.3, log=True),
-        "depth":         trial.suggest_int("depth", 4, 10),
-        "l2_leaf_reg":   trial.suggest_float("l2_leaf_reg", 0.0, 10.0),
+        "learning_rate": trial.suggest_float("learning_rate", config["learning_rate"][0], config["learning_rate"][1], log=True),
+        "depth":         trial.suggest_int("depth", config["depth"][0], config["depth"][1]),
+        "l2_leaf_reg":   trial.suggest_float("l2_leaf_reg", config["l2_leaf_reg"][0], config["l2_leaf_reg"][1]),
         "verbose": 0,
     }
     return ctboost.CatBoostRegressor(

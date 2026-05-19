@@ -1,12 +1,10 @@
 import importlib
 from pathlib import Path
-
 import joblib
 import mlflow
 import numpy as np
 import optuna
 from sklearn.metrics import mean_squared_error
-
 
 class ModelTrainer:
     CONFIGS = {
@@ -16,7 +14,7 @@ class ModelTrainer:
         "linear": "configs.linear",
     }
 
-    def __init__(self, model_name: str = "lightgbm", models_dir: str = "models"):
+    def __init__(self, model_config: dict, model_name: str = "lightgbm", models_dir: str = "models"):
         if model_name not in self.CONFIGS:
             raise ValueError(
                 f"Unknown model '{model_name}'. "
@@ -24,6 +22,7 @@ class ModelTrainer:
             )
         self.model_name = model_name
         self.models_dir = Path(models_dir)
+        self.model_config = model_config  # Save the config!
         self.model = None
         self.best_params = None
         self.best_trial = None
@@ -39,7 +38,6 @@ class ModelTrainer:
     def save(self, filename: str = None):
         if filename is None:
             filename = f"{self.model_name}_model.joblib"
-
         path = self.models_dir / filename
         self.models_dir.mkdir(parents=True, exist_ok=True)
         joblib.dump(self.model, path)
@@ -53,15 +51,16 @@ class ModelTrainer:
 
     def _tune(self, X_train, y_train, X_val, y_val) -> dict:
         def objective(trial):
-
-            model = self.config.build_model(trial)
+            # Pass the specific optuna config to the builder
+            model = self.config.build_model(trial, self.model_config["optuna"])
             model = self.config.fit_model(model, X_train, y_train, X_val, y_val)
             preds = model.predict(X_val)
             rmse = round(np.sqrt(mean_squared_error(y_val, preds)))
             return rmse
 
         def mlflow_callback(study, trial):
-            with mlflow.start_run(run_name=f"trial-{trial.number}", nested=True):
+            # Removed run_name! MLflow will now auto-generate names.
+            with mlflow.start_run(nested=True):
                 mlflow.log_params(trial.params)
                 mlflow.log_metric("val_RMSE", trial.value)
 
@@ -75,7 +74,6 @@ class ModelTrainer:
         return study.best_trial
 
     def _train_final(self, X_train, y_train, X_val, y_val):
-
         class BestTrial:
             def __init__(self, params):
                 self.params = params
@@ -87,6 +85,7 @@ class ModelTrainer:
                 return self.params[name]
 
         trial = BestTrial(self.best_params)
-        model = self.config.build_model(trial)
+        # Pass the config to the final builder as well
+        model = self.config.build_model(trial, self.model_config["optuna"])
         model = self.config.fit_model(model, X_train, y_train, X_val, y_val)
         return model

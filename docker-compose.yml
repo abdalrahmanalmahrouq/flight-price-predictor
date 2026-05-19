@@ -15,9 +15,11 @@ services:
       --host 0.0.0.0
       --port 5000
       --backend-store-uri sqlite:///mlflow.db
-      --default-artifact-root /app/mlruns
+      --default-artifact-root mlflow-artifacts:/
+      --artifacts-destination s3://flight-predictor-artifacts-2026-1/
       --serve-artifacts
-
+      --allowed-hosts "*"
+      --cors-allowed-origins "*"
   api:
     build:
       context: .
@@ -32,7 +34,7 @@ services:
       - MLFLOW_TRACKING_URI=http://mlflow:5000
       - MODEL_NAME=lightgbm_model
       - MODEL_ALIAS=champion
-      - LOAD_FROM=disk
+      - LOAD_FROM=mlflow
       - CHAMPION_MODEL_PATH=models/lightgbm_model.joblib
       - LOG_LEVEL=INFO
     depends_on:

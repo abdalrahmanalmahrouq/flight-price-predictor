@@ -14,7 +14,9 @@ COPY api/        ./api/
 COPY src/        ./src/
 COPY setup.py    .
 COPY models/     ./models/
-
+COPY run.py      .
+COPY configs/    ./configs/
+COPY config.yml  .
 RUN pip install -e .
 
 EXPOSE 8000

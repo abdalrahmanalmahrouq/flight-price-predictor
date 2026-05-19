@@ -19,8 +19,6 @@ reports/
 documents/
 *.ipynb
 mlruns/
-data/
-configs/
 .vscode/
 *.md
 catboost_info/

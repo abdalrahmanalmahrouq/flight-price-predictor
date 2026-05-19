@@ -9,3 +9,10 @@ numpy
 scikit-learn
 joblib
 loguru
+shap
+evidently==0.4.16
+numpy==1.26.4
+optuna
+importlib
+pyyaml
+boto3
