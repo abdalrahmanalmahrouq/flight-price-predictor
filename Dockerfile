@@ -10,14 +10,19 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY api/        ./api/
-COPY src/        ./src/
 COPY setup.py    .
+COPY src/        ./src/
+RUN pip install -e .
+
+COPY api/        ./api/
 COPY models/     ./models/
 COPY run.py      .
 COPY configs/    ./configs/
 COPY config.yml  .
-RUN pip install -e .
+COPY locustfile.py .
+COPY drift_detection.py .
+COPY simulate_drift.py .
+COPY logs/       ./logs/
 
 EXPOSE 8000
 

@@ -16,3 +16,4 @@ optuna
 importlib
 pyyaml
 boto3
+locust

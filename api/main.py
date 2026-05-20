@@ -5,7 +5,7 @@ import joblib
 import mlflow.lightgbm
 import pandas as pd
 from fastapi import FastAPI, HTTPException, Query
-
+from flight_predictor.prediction_logger import init_db, log_prediction
 from api.schemas import (
     BatchFlightInput,
     BatchPredictionOutput,
@@ -105,7 +105,7 @@ async def lifespan(app: FastAPI):
             logger.info("Loaded experimental model: {}", name)
         else:
             logger.warning("Experimental model not found: {}", path)
-
+    init_db()
     logger.info("All models loaded — API ready")
     yield
     logger.info("Shutting down — clearing models")
@@ -154,7 +154,7 @@ def predict(flight: FlightInput):
         df = pd.DataFrame([data], columns=FEATURE_ORDER)
         prediction = ml_model["champion"].predict(df)
         price = float(prediction[0])
-
+        log_prediction(features=data, predicted_price=price)
         logger.info("Prediction complete — price={:.2f} INR", price)
 
     except KeyError as e:

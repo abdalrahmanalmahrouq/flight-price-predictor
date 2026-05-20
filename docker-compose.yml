@@ -26,10 +26,12 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
+      - "8089:8089"
     volumes:
       - ./mlruns:/app/mlruns
       - ./models:/app/models
       - ./data:/app/data
+      - ./logs:/app/logs
     environment:
       - MLFLOW_TRACKING_URI=http://mlflow:5000
       - MODEL_NAME=lightgbm_model
