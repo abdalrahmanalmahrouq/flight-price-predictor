@@ -23,9 +23,7 @@ services:
       --allowed-hosts "*"
       --cors-allowed-origins "*"
   api:
-    build:
-      context: 853506921311.dkr.ecr.eu-north-1.amazonaws.com/flight-price-predictor
-      dockerfile: Dockerfile
+    image: 853506921311.dkr.ecr.eu-north-1.amazonaws.com/flight-price-predictor:latest
     ports:
       - "8000:8000"
       - "8089:8089"

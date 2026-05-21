@@ -73,6 +73,9 @@ jobs:
               docker login --username AWS \
               --password-stdin ${{ secrets.ECR_REGISTRY }}
 
+            cd /home/ubuntu/flight-price-predictor
+            git pull origin main 
+
             # Pull new image
             docker pull ${{ secrets.ECR_REGISTRY }}/flight-price-predictor:latest
 
