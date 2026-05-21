@@ -20,6 +20,13 @@ services:
       --serve-artifacts
       --allowed-hosts "*"
       --cors-allowed-origins "*"
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
   api:
     image: 853506921311.dkr.ecr.eu-north-1.amazonaws.com/flight-price-predictor:latest
     ports:
@@ -38,4 +45,5 @@ services:
       - CHAMPION_MODEL_PATH=models/lightgbm_model.joblib
       - LOG_LEVEL=INFO
     depends_on:
-      - mlflow
+      mlflow:
+        condition: service_healthy 

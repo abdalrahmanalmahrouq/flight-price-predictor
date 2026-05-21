@@ -85,7 +85,7 @@ jobs:
             docker compose up -d --no-build
 
             # Wait for startup
-            sleep 15
+            sleep 40
 
             # Health check
             curl -f http://localhost:8000/health && \
