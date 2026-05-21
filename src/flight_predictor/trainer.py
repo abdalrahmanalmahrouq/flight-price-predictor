@@ -14,19 +14,19 @@ class ModelTrainer:
         "linear": "configs.linear",
     }
 
-    def __init__(self, model_config: dict, model_name: str = "lightgbm", models_dir: str = "models"):
+    def __init__(self, model_name: str = "lightgbm", model_config=None, models_dir: str = "models"):
         if model_name not in self.CONFIGS:
             raise ValueError(
                 f"Unknown model '{model_name}'. "
                 f"Choose from: {list(self.CONFIGS.keys())}"
             )
-        self.model_name = model_name
-        self.models_dir = Path(models_dir)
-        self.model_config = model_config  # Save the config!
-        self.model = None
+        self.model_name   = model_name
+        self.models_dir   = Path(models_dir)
+        self.model_config = {}
+        self.config       = model_config or importlib.import_module(self.CONFIGS[model_name])
+        self.model        = None
         self.best_params = None
-        self.best_trial = None
-        self.config = importlib.import_module(self.CONFIGS[model_name])
+        self.best_trial  = None
 
     def train(self, X_train, y_train, X_val, y_val) -> "ModelTrainer":
         best_trial = self._tune(X_train, y_train, X_val, y_val)
@@ -52,7 +52,7 @@ class ModelTrainer:
     def _tune(self, X_train, y_train, X_val, y_val) -> dict:
         def objective(trial):
             # Pass the specific optuna config to the builder
-            model = self.config.build_model(trial, self.model_config["optuna"])
+            model = self.config.build_model(trial, self.model_config.get("optuna", {}))
             model = self.config.fit_model(model, X_train, y_train, X_val, y_val)
             preds = model.predict(X_val)
             rmse = round(np.sqrt(mean_squared_error(y_val, preds)))
@@ -86,6 +86,6 @@ class ModelTrainer:
 
         trial = BestTrial(self.best_params)
         # Pass the config to the final builder as well
-        model = self.config.build_model(trial, self.model_config["optuna"])
+        model = self.config.build_model(trial, self.model_config.get("optuna", {}))
         model = self.config.fit_model(model, X_train, y_train, X_val, y_val)
         return model

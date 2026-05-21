@@ -101,7 +101,7 @@ if __name__ == "__main__":
             logger.info("=========================================")
             logger.info("Training Model: {}", model_name)
             
-            trainer = ModelTrainer(model_config=config["models"][model_name], model_name=model_name)
+            trainer = ModelTrainer(model_name=model_name, model_config=config["models"][model_name])
             trainer.train(X_train_enc, y_train, X_val_enc, y_val)
             trainer.save()
 
