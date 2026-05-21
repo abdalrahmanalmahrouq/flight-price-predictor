@@ -24,8 +24,8 @@ class FakeModel:
         return np.full(len(X), 5000.0)
 
 
-def fake_build_model(trial):
-    """Fake build_model — ignores trial params, returns FakeModel."""
+def fake_build_model(trial, config=None):
+    """Fake build_model — ignores trial params and config, returns FakeModel."""
     return FakeModel()
 
 

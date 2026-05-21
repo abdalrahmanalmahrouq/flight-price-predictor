@@ -1,0 +1,93 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e .
+
+      - name: Run tests
+        run: pytest tests/ -v
+
+  deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+    needs: test        # only runs if test job passes
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id:     ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region:            eu-north-1
+
+      - name: Login to ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push Docker image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_NAME:   flight-price-predictor
+          IMAGE_TAG:    ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$IMAGE_NAME:$IMAGE_TAG .
+          docker tag  $ECR_REGISTRY/$IMAGE_NAME:$IMAGE_TAG \
+                      $ECR_REGISTRY/$IMAGE_NAME:latest
+          docker push $ECR_REGISTRY/$IMAGE_NAME:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$IMAGE_NAME:latest
+          echo "IMAGE=$ECR_REGISTRY/$IMAGE_NAME:latest" >> $GITHUB_ENV
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host:     ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key:      ${{ secrets.EC2_SSH_KEY }}
+          envs:     IMAGE
+          script: |
+            # Login to ECR from EC2
+            aws ecr get-login-password --region eu-north-1 | \
+              docker login --username AWS \
+              --password-stdin ${{ secrets.ECR_REGISTRY }}
+
+            # Pull new image
+            docker pull ${{ secrets.ECR_REGISTRY }}/flight-price-predictor:latest
+
+            # Update compose to use ECR image instead of building
+            cd /home/ubuntu/flight-price-predictor
+            docker compose down
+            docker compose up -d --no-build
+
+            # Wait for startup
+            sleep 15
+
+            # Health check
+            curl -f http://localhost:8000/health && \
+              echo "Deployment successful" || \
+              (echo "Health check failed — rolling back" && \
+               docker compose down && \
+               docker pull ${{ secrets.ECR_REGISTRY }}/flight-price-predictor:${{ github.event.before }} && \
+               docker compose up -d --no-build)

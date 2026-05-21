@@ -10,6 +10,8 @@ services:
       - ./mlflow.db:/app/mlflow.db
     ports:
       - "5000:5000"
+    env_file:
+      - .env  
     command: >
       mlflow server
       --host 0.0.0.0
@@ -22,7 +24,7 @@ services:
       --cors-allowed-origins "*"
   api:
     build:
-      context: .
+      context: 853506921311.dkr.ecr.eu-north-1.amazonaws.com/flight-price-predictor
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
