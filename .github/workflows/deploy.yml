@@ -82,6 +82,7 @@ jobs:
             # Update compose to use ECR image instead of building
             cd /home/ubuntu/flight-price-predictor
             docker compose down
+            docker compose build mlflow
             docker compose up -d --no-build
 
             # Wait for startup
