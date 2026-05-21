@@ -13,7 +13,6 @@ testttts.ipynb
 pip-packages
 .pytest_cache
 
-*.log
 
 *.joblib
 
