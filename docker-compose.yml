@@ -1,9 +1,7 @@
 services:
 
   mlflow:
-    build:
-      context: .
-      dockerfile: Dockerfile.mlflow
+    image: 853506921311.dkr.ecr.eu-north-1.amazonaws.com/flight-price-predictor-mlflow:latest
     working_dir: /app
     volumes:
       - ./mlruns:/app/mlruns
