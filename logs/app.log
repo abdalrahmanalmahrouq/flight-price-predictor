@@ -4,3 +4,451 @@
 2026-05-21 13:23:22 | INFO     | api.main:lifespan:94 | Loading lightgbm_model@champion from registry
 2026-05-21 13:24:18 | INFO     | api.main:lifespan:92 | Connecting to MLflow at http://mlflow:5000...
 2026-05-21 13:24:18 | INFO     | api.main:lifespan:94 | Loading lightgbm_model@champion from registry
+2026-05-21 14:19:24 | INFO     | api.main:lifespan:92 | Connecting to MLflow at http://mlflow:5000...
+2026-05-21 14:19:24 | INFO     | api.main:lifespan:94 | Loading lightgbm_model@champion from registry
+2026-05-21 14:58:50 | INFO     | api.main:lifespan:92 | Connecting to MLflow at http://mlflow:5000...
+2026-05-21 14:58:50 | INFO     | api.main:lifespan:94 | Loading lightgbm_model@champion from registry
+2026-05-21 14:59:22 | INFO     | api.main:lifespan:98 | Champion loaded from MLflow registry
+2026-05-21 14:59:22 | INFO     | api.main:lifespan:105 | Loaded experimental model: lightgbm
+2026-05-21 14:59:22 | WARNING  | api.main:lifespan:107 | Experimental model not found: models/xgboost_model.joblib
+2026-05-21 14:59:23 | INFO     | api.main:lifespan:105 | Loaded experimental model: catboost
+2026-05-21 14:59:23 | INFO     | flight_predictor.prediction_logger:init_db:36 | Prediction database initialized at logs/predictions.db
+2026-05-21 14:59:23 | INFO     | api.main:lifespan:109 | All models loaded — API ready
+2026-05-21 15:12:32 | INFO     | api.main:lifespan:111 | Shutting down — clearing models
+2026-05-21 18:27:18 | INFO     | api.main:lifespan:92 | Connecting to MLflow at http://mlflow:5000...
+2026-05-21 18:27:18 | INFO     | api.main:lifespan:94 | Loading lightgbm_model@champion from registry
+2026-05-21 18:27:21 | INFO     | api.main:lifespan:98 | Champion loaded from MLflow registry
+2026-05-21 18:27:22 | INFO     | api.main:lifespan:105 | Loaded experimental model: lightgbm
+2026-05-21 18:27:22 | WARNING  | api.main:lifespan:107 | Experimental model not found: models/xgboost_model.joblib
+2026-05-21 18:27:22 | INFO     | api.main:lifespan:105 | Loaded experimental model: catboost
+2026-05-21 18:27:22 | INFO     | flight_predictor.prediction_logger:init_db:36 | Prediction database initialized at logs/predictions.db
+2026-05-21 18:27:22 | INFO     | api.main:lifespan:109 | All models loaded — API ready
+2026-05-21 18:35:56 | INFO     | api.main:lifespan:111 | Shutting down — clearing models
+2026-05-21 18:39:31 | INFO     | api.main:lifespan:92 | Connecting to MLflow at http://mlflow:5000...
+2026-05-21 18:39:31 | INFO     | api.main:lifespan:94 | Loading lightgbm_model@champion from registry
+2026-05-21 18:39:34 | INFO     | api.main:lifespan:98 | Champion loaded from MLflow registry
+2026-05-21 18:39:34 | INFO     | api.main:lifespan:105 | Loaded experimental model: lightgbm
+2026-05-21 18:39:34 | WARNING  | api.main:lifespan:107 | Experimental model not found: models/xgboost_model.joblib
+2026-05-21 18:39:35 | INFO     | api.main:lifespan:105 | Loaded experimental model: catboost
+2026-05-21 18:39:35 | INFO     | flight_predictor.prediction_logger:init_db:36 | Prediction database initialized at logs/predictions.db
+2026-05-21 18:39:35 | INFO     | api.main:lifespan:109 | All models loaded — API ready
+2026-05-21 18:39:49 | INFO     | api.main:lifespan:111 | Shutting down — clearing models
+2026-05-21 18:46:24 | INFO     | api.main:lifespan:92 | Connecting to MLflow at http://mlflow:5000...
+2026-05-21 18:46:24 | INFO     | api.main:lifespan:94 | Loading lightgbm_model@champion from registry
+2026-05-21 18:46:27 | INFO     | api.main:lifespan:98 | Champion loaded from MLflow registry
+2026-05-21 18:46:27 | INFO     | api.main:lifespan:105 | Loaded experimental model: lightgbm
+2026-05-21 18:46:27 | WARNING  | api.main:lifespan:107 | Experimental model not found: models/xgboost_model.joblib
+2026-05-21 18:46:27 | INFO     | api.main:lifespan:105 | Loaded experimental model: catboost
+2026-05-21 18:46:27 | INFO     | flight_predictor.prediction_logger:init_db:36 | Prediction database initialized at logs/predictions.db
+2026-05-21 18:46:27 | INFO     | api.main:lifespan:109 | All models loaded — API ready
+2026-05-21 18:48:02 | INFO     | api.main:predict:133 | Prediction request — airline=Vistara is_business=1 month=2
+2026-05-21 18:48:02 | INFO     | api.main:predict:158 | Prediction complete — price=65448.56 INR
+2026-05-22 12:09:57 | INFO     | api.main:lifespan:111 | Shutting down — clearing models
+2026-05-22 12:10:26 | INFO     | api.main:lifespan:92 | Connecting to MLflow at http://mlflow:5000...
+2026-05-22 12:10:26 | INFO     | api.main:lifespan:94 | Loading lightgbm_model@champion from registry
+2026-05-22 12:10:30 | INFO     | api.main:lifespan:98 | Champion loaded from MLflow registry
+2026-05-22 12:10:30 | INFO     | api.main:lifespan:105 | Loaded experimental model: lightgbm
+2026-05-22 12:10:30 | WARNING  | api.main:lifespan:107 | Experimental model not found: models/xgboost_model.joblib
+2026-05-22 12:10:30 | INFO     | api.main:lifespan:105 | Loaded experimental model: catboost
+2026-05-22 12:10:30 | INFO     | flight_predictor.prediction_logger:init_db:36 | Prediction database initialized at logs/predictions.db
+2026-05-22 12:10:30 | INFO     | api.main:lifespan:109 | All models loaded — API ready
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=2
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=6204.93 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=2
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=12513.68 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=2
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=11827.09 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=Vistara is_business=1 month=3
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=54806.98 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=3
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=4142.16 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=3
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=3863.11 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=2
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=2098.69 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=2
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=7872.76 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=2
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=4373.80 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=2
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=28470.88 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=Vistara is_business=1 month=3
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=39423.60 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=3
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=3189.41 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=2
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=5293.64 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=3
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=6444.04 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=2
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=62417.65 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=3
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=5109.87 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=3
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=2555.70 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=2
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=7732.45 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=Vistara is_business=1 month=3
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=22879.28 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=2
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=8306.31 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=3
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=43530.91 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=3
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=26025.62 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=Vistara is_business=1 month=3
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=75417.02 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=2
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=31390.91 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=2
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=39234.58 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=2
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=8010.94 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=2
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=45402.03 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=2
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=20920.95 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=3
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=5112.42 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=3
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=2431.78 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=3
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=8287.28 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=2
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=36466.71 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=3
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=3128.92 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=3
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=3127.90 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=3
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=35931.26 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=2
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=7806.22 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=Vistara is_business=1 month=3
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=57136.95 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=3
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=49066.15 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=2
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=5455.91 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=2
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=24845.96 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=2
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=7600.67 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=2
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=11206.57 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=2
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=5788.24 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=3
+2026-05-22 13:43:52 | INFO     | api.main:predict:158 | Prediction complete — price=60625.44 INR
+2026-05-22 13:43:52 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=3695.39 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=6365.04 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=5788.10 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=4028.17 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Vistara is_business=1 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=54166.20 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=3570.73 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=5167.25 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Vistara is_business=1 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=48431.10 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=3078.48 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=8750.17 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=30535.79 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Vistara is_business=1 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=63318.70 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Vistara is_business=1 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=61112.53 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=34907.01 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=5744.22 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=7971.86 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=5809.02 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Vistara is_business=1 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=53564.30 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=2372.41 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=7724.75 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=6268.87 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=6789.26 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=3313.81 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=6413.39 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=3529.78 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=7161.57 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Vistara is_business=1 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=33891.12 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Vistara is_business=1 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=48964.23 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=5310.52 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=5053.80 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=39981.47 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=6946.08 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=4999.57 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=9311.35 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Vistara is_business=1 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=35329.23 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=8401.42 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=3525.14 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Vistara is_business=1 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=51638.51 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=3980.71 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=3082.71 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=4518.56 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=1877.28 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=5997.38 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=6682.65 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=3364.53 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=4308.15 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=52156.21 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=3215.59 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=5260.41 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=3428.41 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=6695.06 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=42827.23 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=43933.42 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=58239.68 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=40404.97 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=4805.02 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=3456.86 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=44925.88 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=6661.90 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=9146.61 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=7906.58 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=4807.40 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=5666.14 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=5441.60 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=28833.03 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=8200.09 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=4856.99 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=7862.52 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=3485.93 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=8250.90 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=3828.93 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=7418.33 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=3626.37 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=2977.15 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=7275.82 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=2475.50 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=4370.92 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=20821.62 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=29215.64 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Vistara is_business=1 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=73919.07 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=3184.35 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=1629.68 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=2777.68 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=39522.41 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=7903.13 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=7721.78 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=3306.47 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=6872.47 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=6218.51 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=6358.85 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=3170.67 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=5785.79 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=30951.81 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=Vistara is_business=1 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=46535.34 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=4814.75 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=6378.65 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=2045.79 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=2
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=5820.65 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=3
+2026-05-22 13:43:53 | INFO     | api.main:predict:158 | Prediction complete — price=4068.82 INR
+2026-05-22 13:43:53 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=8134.75 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=41816.32 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=4992.59 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=8417.11 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=26281.19 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=17987.15 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=4787.30 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=Vistara is_business=1 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=41031.17 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=8520.59 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=4059.27 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=6109.88 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=5304.33 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=5644.60 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=7932.38 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=5516.91 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=Vistara is_business=1 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=23212.84 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=Vistara is_business=1 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=49445.00 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=50183.73 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=3261.27 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=4660.97 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=7128.56 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=8615.11 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=3786.51 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=3855.14 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=Vistara is_business=1 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=36242.13 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=7139.53 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=24536.83 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=4412.91 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=5505.31 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=5105.06 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=6114.99 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=7103.01 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=Vistara is_business=1 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=36778.19 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=4986.57 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=5603.49 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=5193.70 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=10584.69 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=2767.91 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=46110.44 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=8283.79 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=4077.31 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=6754.71 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=Vistara is_business=1 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=49280.15 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=24177.68 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=3002.53 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=5798.31 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=Vistara is_business=1 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=63523.19 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=IndiGo is_business=0 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=3712.11 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=6309.27 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=4516.48 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=5814.27 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=46801.08 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=SpiceJet is_business=0 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=5386.33 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=28868.93 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=AirAsia is_business=0 month=2
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=5463.45 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=Air India is_business=1 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=24408.93 INR
+2026-05-22 13:43:54 | INFO     | api.main:predict:133 | Prediction request — airline=GO FIRST is_business=0 month=3
+2026-05-22 13:43:54 | INFO     | api.main:predict:158 | Prediction complete — price=5459.76 INR
