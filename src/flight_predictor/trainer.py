@@ -22,11 +22,11 @@ class ModelTrainer:
             )
         self.model_name   = model_name
         self.models_dir   = Path(models_dir)
-        self.model_config = {}
-        self.config       = model_config or importlib.import_module(self.CONFIGS[model_name])
+        self.model_config = model_config or {}                              # ← dict from config.yml
+        self.config       = importlib.import_module(self.CONFIGS[model_name])  # ← always the module
         self.model        = None
-        self.best_params = None
-        self.best_trial  = None
+        self.best_params  = None
+        self.best_trial   = None
 
     def train(self, X_train, y_train, X_val, y_val) -> "ModelTrainer":
         best_trial = self._tune(X_train, y_train, X_val, y_val)

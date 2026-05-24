@@ -1,0 +1,54 @@
+name: Retraining Pipeline
+
+on:
+  schedule:
+    - cron: "0 2 1 * *"    # 2am on 1st of every month
+  workflow_dispatch:         # manual trigger from GitHub UI
+    inputs:
+      data_path:
+        description: "Path to new data CSV on EC2 (optional)"
+        required: false
+        default: ""
+      force_retrain:
+        description: "Retrain even if challenger doesnt improve"
+        type: boolean
+        default: false
+
+jobs:
+  retrain:
+    name: Retrain and promote
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: SSH into EC2 and run retraining
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host:     ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key:      ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd ~/flight-price-predictor
+            git pull origin main
+
+            # Run retraining pipeline
+            if [ -n "${{ github.event.inputs.data_path }}" ]; then
+              conda run -n flight-price-predictor \
+                python retraining/retrain.py \
+                --data-path ${{ github.event.inputs.data_path }}
+            else
+              conda run -n flight-price-predictor \
+                python retraining/retrain.py \
+                --use-existing
+            fi
+
+            # If pipeline completed successfully → restart API
+            echo "Retraining complete — restarting API"
+            docker compose restart api
+            sleep 30
+
+            # Health check after restart
+            curl -f http://localhost:8000/health && \
+              echo "API healthy after retraining" || \
+              echo "WARNING — API health check failed after restart"
