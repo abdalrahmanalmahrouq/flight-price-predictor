@@ -1,8 +1,8 @@
 name: Retraining Pipeline
 
 on:
-  schedule:
-    - cron: "0 2 1 * *"    # 2am on 1st of every month
+  # schedule:
+  #   - cron: "0 2 1 * *"    # 2am on 1st of every month
   workflow_dispatch:         # manual trigger from GitHub UI
     inputs:
       data_path:
