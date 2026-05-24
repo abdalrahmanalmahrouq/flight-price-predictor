@@ -25,3 +25,5 @@ catboost_info/
 .pytest_cache/
 *.log
 .DS_Store
+images/
+*.png

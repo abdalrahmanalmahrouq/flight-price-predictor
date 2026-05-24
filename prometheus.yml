@@ -1,0 +1,9 @@
+global:
+  scrape_interval: 15s      # collect metrics every 15 seconds
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: "flight-price-predictor"
+    static_configs:
+      - targets: ["api:8000"]    # api is the docker service name
+    metrics_path: "/metrics"

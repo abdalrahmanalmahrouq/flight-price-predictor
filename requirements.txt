@@ -17,3 +17,5 @@ importlib
 pyyaml
 boto3
 locust
+prometheus-fastapi-instrumentator
+prometheus-client

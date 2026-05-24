@@ -15,6 +15,48 @@ from api.schemas import (
 )
 
 from flight_predictor.logger import logger, setup_logger
+from prometheus_fastapi_instrumentator import Instrumentator
+from prometheus_client import Counter, Histogram, Gauge
+import time
+
+# ── Custom Prometheus Metrics ─────────────────────────────────────────────────
+
+# Counter — total predictions served (never decreases)
+PREDICTIONS_TOTAL = Counter(
+    "flight_predictions_total",
+    "Total number of flight price predictions served",
+    ["endpoint", "flight_class"]   # labels — economy vs business
+)
+
+# Histogram — distribution of predicted prices
+PREDICTION_PRICE = Histogram(
+    "flight_predicted_price_rupees",
+    "Distribution of predicted flight prices in rupees",
+    buckets=[1000, 3000, 5000, 8000, 12000, 20000, 35000, 55000, 80000, 120000]
+)
+
+# Gauge — current rolling mean of predictions (updates over time)
+PREDICTION_MEAN = Gauge(
+    "flight_prediction_mean_rupees",
+    "Rolling mean of predicted flight prices"
+)
+
+# Gauge — business class request ratio
+BUSINESS_CLASS_RATIO = Gauge(
+    "flight_business_class_ratio",
+    "Ratio of business class requests to total requests"
+)
+
+# Counter — track request class mix for drift detection
+ECONOMY_REQUESTS = Counter(
+    "flight_economy_requests_total",
+    "Total economy class prediction requests"
+)
+
+BUSINESS_REQUESTS = Counter(
+    "flight_business_requests_total",
+    "Total business class prediction requests"
+)
 
 LOG_LEVEL=os.getenv("LOG_LEVEL", "INFO")
 setup_logger(level=LOG_LEVEL)
@@ -118,6 +160,8 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+# Expose /metrics endpoint for Prometheus
+Instrumentator().instrument(app).expose(app)
 
 # Endpoints
 @app.get("/health", response_model=HealthResponse)
@@ -154,6 +198,24 @@ def predict(flight: FlightInput):
         df = pd.DataFrame([data], columns=FEATURE_ORDER)
         prediction = ml_model["champion"].predict(df)
         price = float(prediction[0])
+
+        # ── Record metrics ────────────────────────────────────────────────────
+        flight_class = "business" if is_business else "economy"
+
+        PREDICTIONS_TOTAL.labels(
+            endpoint="/predict",
+            flight_class=flight_class
+        ).inc()
+
+        PREDICTION_PRICE.observe(price)
+        PREDICTION_MEAN.set(price)
+
+        if is_business:
+            BUSINESS_REQUESTS.inc()
+        else:
+            ECONOMY_REQUESTS.inc()
+
+        # Log to database
         log_prediction(features=data, predicted_price=price)
         logger.info("Prediction complete — price={:.2f} INR", price)
 

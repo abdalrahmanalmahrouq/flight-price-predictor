@@ -18,7 +18,9 @@ pip-packages
 
 *.joblib
 
-*.png
+
 .env
 
 monitoring/reports
+
+test.py
