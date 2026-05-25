@@ -85,6 +85,8 @@ jobs:
 
 
             cd /home/ubuntu/flight-price-predictor
+            git pull origin main
+            
             docker compose down
             docker compose up -d --no-build
 
