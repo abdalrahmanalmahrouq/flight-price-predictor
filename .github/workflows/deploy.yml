@@ -83,6 +83,8 @@ jobs:
             docker pull ${{ secrets.ECR_REGISTRY }}/flight-price-predictor-api:latest
             docker pull ${{ secrets.ECR_REGISTRY }}/flight-price-predictor-mlflow:latest
 
+
+            cd /home/ubuntu/flight-price-predictor
             docker compose down
             docker compose up -d --no-build
 
