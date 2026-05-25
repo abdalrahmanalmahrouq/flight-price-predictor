@@ -135,7 +135,6 @@ def train_challenger(X_train, y_train, X_val, y_val) -> tuple[ModelTrainer, str]
             model_config=model_config,   
         )
         trainer.train(X_train, y_train, X_val, y_val)
-        trainer.save()
 
         mlflow.log_param("model_name", MODEL_TYPE)
         mlflow.log_params(trainer.best_params)
@@ -264,8 +263,13 @@ def main():
     )
 
     # ── Step 6 — Save challenger model to disk ────────────────────────────────
-    trainer.save(filename=f"{MODEL_TYPE}_model.joblib")
-    logger.info("Challenger model saved to disk")
+    if promoted:
+        trainer.save(filename=f"{MODEL_TYPE}_model.joblib")
+        logger.info("New champion saved to disk → restart API to serve it")
+        logger.info("  docker compose restart api")
+    else:
+        logger.info("Challenger not promoted — disk model unchanged")
+        logger.info("Champion continues serving current model")
 
     # ── Final summary ─────────────────────────────────────────────────────────
     logger.info("=" * 60)

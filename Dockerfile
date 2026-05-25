@@ -23,7 +23,7 @@ COPY locustfile.py .
 COPY drift_detection.py .
 COPY simulate_drift.py .
 COPY logs/       ./logs/
-COPY retraining/ ./app/retraining/
+COPY retraining/ ./retraining/
 EXPOSE 8000
 
 CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]
